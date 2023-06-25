@@ -1,2 +1,5 @@
 #!/bin/bash
-cp -u *.html
+src_dir=$(pwd); dest_dir=$(dirname "$src_dir"); find "$src_dir" -maxdepth 1 -type f -name "*.html" \
+-exec bash -c 'for file; do dest_file="$dest_dir/$(basename "$file")"; \
+if [[ ! -e "$dest_file" || "$file" -nt "$dest_file" ]]; then cp "$file" "$dest_file"; \
+echo "Copied: $file -> $dest_file"; fi; done' bash {} +
